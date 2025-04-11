@@ -1,31 +1,44 @@
-<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-    <label>Titre</label>
-    <input formControlName="titre" />
-    <div *ngIf="eventForm.get('titre')?.invalid && eventForm.get('titre')?.touched">
+<h2 class="mb-4">Ajouter un évènement</h2>
+
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="border p-4 rounded bg-light">
+  <div class="mb-3">
+    <label class="form-label">Titre</label>
+    <input class="form-control" formControlName="titre" />
+    <div class="text-danger" *ngIf="eventForm.get('titre')?.invalid && eventForm.get('titre')?.touched">
       Titre est obligatoire.
     </div>
-  
-    <label>Description</label>
-    <input formControlName="description" />
-    <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched">
-      Description doit avoir au moins 10 caractères.
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea class="form-control" formControlName="description"></textarea>
+    <div class="text-danger" *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched">
+      Min. 10 caractères.
     </div>
-  
-    <label>Lieu</label>
-    <input formControlName="lieu" />
-  
-    <label>Date</label>
-    <input type="date" formControlName="date" />
-  
-    <label>Disponible</label>
-    <input type="checkbox" formControlName="disponible" />
-  
-    <label>Nombre Max</label>
-    <input type="number" formControlName="nbrMax" />
-    <div *ngIf="eventForm.get('nbrMax')?.invalid && eventForm.get('nbrMax')?.touched">
-      Doit être un nombre positif.
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Lieu</label>
+    <input class="form-control" formControlName="lieu" />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Date</label>
+    <input type="date" class="form-control" formControlName="date" />
+  </div>
+
+  <div class="form-check mb-3">
+    <input type="checkbox" class="form-check-input" formControlName="disponible" />
+    <label class="form-check-label">Disponible</label>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Nombre Max</label>
+    <input type="number" class="form-control" formControlName="nbrMax" />
+    <div class="text-danger" *ngIf="eventForm.get('nbrMax')?.invalid && eventForm.get('nbrMax')?.touched">
+      Nombre positif requis.
     </div>
-  
-    <button type="submit" [disabled]="eventForm.invalid">Ajouter</button>
-  </form>
-  
+  </div>
+
+  <button class="btn btn-primary" type="submit" [disabled]="eventForm.invalid">Ajouter</button>
+</form>

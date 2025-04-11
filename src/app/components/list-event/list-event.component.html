@@ -1,11 +1,44 @@
-<input [(ngModel)]="search" (input)="searchEvents()" placeholder="Rechercher par lieu ou date" />
+<h2 class="mb-4">Liste des évènements</h2>
 
-<ul>
-  <li *ngFor="let event of filteredEvents">
-    {{ event.titre }} - {{ event.lieu }} - {{ event.date }} - Dispo: {{ event.disponible }}
-    <button (click)="deleteEvent(event.id, event.disponible)" 
-            [disabled]="event.disponible">Supprimer</button>
-  </li>
-</ul>
+<div class="input-group mb-3">
+  <input type="text" [(ngModel)]="search" (input)="searchEvents()" class="form-control" placeholder="Rechercher par lieu ou date" />
+</div>
 
-<button (click)="countAvailableEvents()">Nombre total d'événements disponibles</button>
+<table class="table table-bordered table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Titre</th>
+      <th>Description</th>
+      <th>Lieu</th>
+      <th>Date</th>
+      <th>Disponible</th>
+      <th>Nombre Max</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let event of filteredEvents">
+      <td>{{ event.titre }}</td>
+      <td>{{ event.description }}</td>
+      <td>{{ event.lieu }}</td>
+      <td>{{ event.date }}</td>
+      <td>
+        <span class="badge" [ngClass]="event.disponible ? 'bg-success' : 'bg-danger'">
+          {{ event.disponible ? 'Oui' : 'Non' }}
+        </span>
+      </td>
+      <td>{{ event.nbrMax }}</td>
+      <td>
+        <button class="btn btn-sm btn-danger" (click)="deleteEvent(event.id, event.disponible)" [disabled]="event.disponible">
+          Supprimer
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-end">
+  <button class="btn btn-info" (click)="countAvailableEvents()">
+    Nombre d'évènements disponibles
+  </button>
+</div>

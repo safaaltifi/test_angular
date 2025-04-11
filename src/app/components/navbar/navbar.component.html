@@ -1,11 +1,20 @@
-<nav class="navbar">
-    <a href="#" class="logo">MyLogo</a>
-    <button class="toggle" (click)="toggleMenu()">☰</button>
-    <ul [class.show]="isMenuOpen">
-      <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/add-event" routerLinkActive="active">Add event</a></li>
-      <li><a routerLink="/list-event" routerLinkActive="active">Event</a></li>
-     
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">Event Manager</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/add-event">Add Event</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/list-event">Events</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
+  
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
   
