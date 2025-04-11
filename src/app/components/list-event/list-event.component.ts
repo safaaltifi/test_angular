@@ -40,7 +40,7 @@ export class ListEventComponent implements OnInit {
     );
   }
 
-  countAvailableEvents(): number {
-    return this.events.filter(e => e.disponible).length;
+  countAvailableEvents() {
+    return alert(this.events.filter(e => e.disponible).length);
   }
 }
