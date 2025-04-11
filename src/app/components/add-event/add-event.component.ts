@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { EvenementService } from 'src/app/services/evenement.service';
 
 @Component({
   selector: 'app-add-event',
@@ -13,7 +14,8 @@ export class AddEventComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private eventService: EvenementService,
   ) {
     this.eventForm = this.fb.group({
       titre: ['', Validators.required],
@@ -27,7 +29,7 @@ export class AddEventComponent {
 
   onSubmit() {
     if (this.eventForm.valid) {
-      this.http.post('http://localhost:3000/events', this.eventForm.value).subscribe(() => {
+      this.eventService.addEvent(this.eventForm.value as any).subscribe(() => {
         this.router.navigate(['/list-event']);
       });
     }

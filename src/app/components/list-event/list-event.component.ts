@@ -1,43 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { EvenementService } from '../../services/evenement.service';
 import { Evenement } from 'src/app/models/evenement';
+
 
 @Component({
   selector: 'app-list-event',
-  templateUrl: './list-event.component.html'
+  templateUrl: './list-event.component.html',
 })
 export class ListEventComponent implements OnInit {
   events: Evenement[] = [];
   filteredEvents: Evenement[] = [];
-  search = '';
+  search: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private eventService: EvenementService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadEvents();
   }
 
   loadEvents() {
-    this.http.get<Evenement[]>('http://localhost:3000/events').subscribe(data => {
+    this.eventService.getEvents().subscribe((data) => {
       this.events = data;
-      this.filteredEvents = [...this.events];
+      this.filteredEvents = data;
     });
   }
 
   deleteEvent(id: number, disponible: boolean) {
     if (!disponible) {
-      this.http.delete(`http://localhost:3000/events/${id}`).subscribe(() => this.loadEvents());
+      this.eventService.deleteEvent(id).subscribe(() => {
+        this.loadEvents();
+      });
     }
   }
 
   searchEvents() {
-    this.filteredEvents = this.events.filter(event =>
-      event.lieu.toLowerCase().includes(this.search.toLowerCase()) ||
-      event.date.includes(this.search)
+    const term = this.search.toLowerCase();
+    this.filteredEvents = this.events.filter(e =>
+      e.lieu.toLowerCase().includes(term) || e.date.includes(term)
     );
   }
 
-  countAvailableEvents() {
-    return alert(this.events.filter(e => e.disponible).length);
+  countAvailableEvents(): number {
+    return this.events.filter(e => e.disponible).length;
   }
 }
