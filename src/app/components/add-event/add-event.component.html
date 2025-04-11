@@ -1,0 +1,31 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <label>Titre</label>
+    <input formControlName="titre" />
+    <div *ngIf="eventForm.get('titre')?.invalid && eventForm.get('titre')?.touched">
+      Titre est obligatoire.
+    </div>
+  
+    <label>Description</label>
+    <input formControlName="description" />
+    <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched">
+      Description doit avoir au moins 10 caractères.
+    </div>
+  
+    <label>Lieu</label>
+    <input formControlName="lieu" />
+  
+    <label>Date</label>
+    <input type="date" formControlName="date" />
+  
+    <label>Disponible</label>
+    <input type="checkbox" formControlName="disponible" />
+  
+    <label>Nombre Max</label>
+    <input type="number" formControlName="nbrMax" />
+    <div *ngIf="eventForm.get('nbrMax')?.invalid && eventForm.get('nbrMax')?.touched">
+      Doit être un nombre positif.
+    </div>
+  
+    <button type="submit" [disabled]="eventForm.invalid">Ajouter</button>
+  </form>
+  

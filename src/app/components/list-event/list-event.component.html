@@ -1,0 +1,11 @@
+<input [(ngModel)]="search" (input)="searchEvents()" placeholder="Rechercher par lieu ou date" />
+
+<ul>
+  <li *ngFor="let event of filteredEvents">
+    {{ event.titre }} - {{ event.lieu }} - {{ event.date }} - Dispo: {{ event.disponible }}
+    <button (click)="deleteEvent(event.id, event.disponible)" 
+            [disabled]="event.disponible">Supprimer</button>
+  </li>
+</ul>
+
+<button (click)="countAvailableEvents()">Nombre total d'événements disponibles</button>
