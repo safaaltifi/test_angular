@@ -1,0 +1,11 @@
+<nav class="navbar">
+    <a href="#" class="logo">MyLogo</a>
+    <button class="toggle" (click)="toggleMenu()">☰</button>
+    <ul [class.show]="isMenuOpen">
+      <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+      <li><a routerLink="/reservation" routerLinkActive="active">Mes réservations</a></li>
+      <li><a routerLink="/menu" routerLinkActive="active">Proposer un menu</a></li>
+     
+    </ul>
+  </nav>
+  
